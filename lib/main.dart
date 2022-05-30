@@ -22,6 +22,7 @@ class _ToDoState extends State<MainUI> {
   // text field
   final TextEditingController _createTaskController = TextEditingController();
 
+  @override
   void initState() {
     super.initState();
     getStoredData("todo_storage");
@@ -38,11 +39,11 @@ class _ToDoState extends State<MainUI> {
       floatingActionButton: FloatingActionButton(
           onPressed: () => _popCreateTaskDialog(context),
           tooltip: 'Add Item',
-          child: Icon(Icons.add)),
+          child: const Icon(Icons.add)),
     );
   }
 
-  bodyContent() {
+  Widget bodyContent() {
     return ListView.builder(
         itemCount: _toDoList.length,
         itemBuilder: (context, index) {
@@ -56,7 +57,7 @@ class _ToDoState extends State<MainUI> {
   }
 
   // display a dialog for the user to enter items
-  Future<Future> _popCreateTaskDialog(BuildContext context) async {
+  Future<void> _popCreateTaskDialog(BuildContext context) async {
     // alter the app state to show a dialog
     return showDialog(
         context: context,
@@ -74,7 +75,7 @@ class _ToDoState extends State<MainUI> {
                 onPressed: () async {
                   Navigator.of(context).pop();
                   _addItem(_createTaskController.text);
-                  SnackBar snackBar = SnackBar(content: Text("Task added"));
+                  SnackBar snackBar = const SnackBar(content: Text("Task added"));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
               ),
@@ -91,7 +92,7 @@ class _ToDoState extends State<MainUI> {
   }
 
   // display a dialog for the user to delete items
-  Future _popDeleteTaskDialog(BuildContext context, int index) {
+  Future<void> _popDeleteTaskDialog(BuildContext context, int index) {
     return showDialog(
         context: context,
         builder: (BuildContext ctx) {
@@ -105,7 +106,7 @@ class _ToDoState extends State<MainUI> {
                 onPressed: () {
                   Navigator.of(context).pop();
                   _deleteItem(index);
-                  SnackBar snackBar = SnackBar(content: Text("Task deleted"));
+                  SnackBar snackBar = const SnackBar(content: Text("Task deleted"));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
               ),
